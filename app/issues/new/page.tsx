@@ -1,8 +1,9 @@
 "use client";
-import FormErrorMessage from "@/app/components/FormErrorMessage";
+import Button from "@/app/components/form/Button";
+import FormErrorMessage from "@/app/components/form/ErrorMessage";
 import { IssueForm, issueSchema } from "@/app/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Callout, TextField } from "@radix-ui/themes";
+import { Callout, TextField } from "@radix-ui/themes";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
 import { useRouter } from "next/navigation";
@@ -22,19 +23,13 @@ export default function NewIssue() {
   });
   const router = useRouter();
   const [error, setError] = useState<string>();
+  const [isSubmitting, setSubmitting] = useState(false);
 
   return (
     <div>
       <form
         className="max-w-xl space-y-3"
-        onSubmit={handleSubmit(async (data) => {
-          try {
-            await axios.post("/api/issues", data);
-            router.push("/issues");
-          } catch (error) {
-            setError("An unexpected error occured");
-          }
-        })}
+        onSubmit={handleSubmit(async (data) => await onSubmit(data))}
       >
         <ErrorMessage />
         <TextField.Root placeholder="Title" {...register("title")} />
@@ -51,7 +46,12 @@ export default function NewIssue() {
 
         <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
 
-        <Button>Submit New Issue</Button>
+        <Button
+          loading={isSubmitting}
+          //disabled={errors.description || errors.title ? false : true}
+        >
+          Submit New Issue
+        </Button>
       </form>
     </div>
   );
@@ -69,5 +69,16 @@ export default function NewIssue() {
         )}
       </>
     );
+  }
+
+  async function onSubmit(data: IssueForm) {
+    try {
+      setSubmitting(true);
+      await axios.post("/api/issues", data);
+      router.push("/issues");
+    } catch (error) {
+      setSubmitting(false);
+      setError("An unexpected error occured");
+    }
   }
 }
