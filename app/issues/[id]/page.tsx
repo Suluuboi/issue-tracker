@@ -1,7 +1,6 @@
 import IssueStatus from "@/app/components/badge/Status";
 import prisma from "@/prisma/client";
 import { Card, Flex, Heading, Text } from "@radix-ui/themes";
-import delay from "delay";
 import { notFound } from "next/navigation";
 
 import ReactMarkdown from "react-markdown";
@@ -15,7 +14,7 @@ export default async function Details({ params }: Props) {
   const issue = await prisma.issue.findUnique({
     where: { id: parseInt(params.id) },
   });
-  delay(2000);
+
   if (!issue) notFound();
 
   const { title, description, status, createdAt } = issue;
