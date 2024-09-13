@@ -4,6 +4,8 @@ import { Card, Flex, Heading, Text } from "@radix-ui/themes";
 import delay from "delay";
 import { notFound } from "next/navigation";
 
+import ReactMarkdown from "react-markdown";
+
 interface Props {
   params: { id: string };
 }
@@ -20,12 +22,12 @@ export default async function Details({ params }: Props) {
   return (
     <div>
       <Heading>{title}</Heading>
-      <Flex gap={"3"} my={"2"}>
+      <Flex gap={"3"} my={"2"} align={"center"}>
         <IssueStatus status={status} />
         <Text as="p">{createdAt.toDateString()}</Text>
       </Flex>
-      <Card>
-        <Text as="div">{description}</Text>
+      <Card className="prose mt-4">
+        <ReactMarkdown>{description}</ReactMarkdown>
       </Card>
     </div>
   );
