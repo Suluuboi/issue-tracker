@@ -16,7 +16,7 @@ export default function Detalis({ issue }: Props) {
         <BadgeStatus status={status} />
         <Text as="p">{createdAt.toDateString()}</Text>
       </Flex>
-      <Card className="prose mt-4">
+      <Card className="prose mt-4 max-w-full">
         <ReactMarkdown>{description}</ReactMarkdown>
       </Card>
     </>
