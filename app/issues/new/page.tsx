@@ -1,4 +1,10 @@
-import IssueForm from "../_component/IssueForm";
+import dynamic from "next/dynamic";
+import LoadingNew from "./loading";
+
+const IssueForm = dynamic(() => import("@/app/issues/_component/IssueForm"), {
+  ssr: false,
+  loading: () => <LoadingNew />,
+});
 
 export default function NewIssue() {
   return <IssueForm />;
