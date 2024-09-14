@@ -7,7 +7,6 @@ interface Props {
 }
 
 export default async function EditIssue({ params }: Props) {
-  console.log(params);
   const issue = await prisma.issue.findUnique({
     where: { id: parseInt(params.id) },
   });
