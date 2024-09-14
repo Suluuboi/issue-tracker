@@ -6,7 +6,7 @@ export default function EditButton({ issueId }: { issueId: number }) {
   return (
     <Button>
       <FaPencil />
-      <Link href={`/issues/${issueId}/edit`}>Edit Issue</Link>
+      <Link href={`/issues/edit/${issueId}`}>Edit Issue</Link>
     </Button>
   );
 }
