@@ -1,4 +1,4 @@
-import { Button } from "@radix-ui/themes";
+import { Button } from "@/app/components";
 import Link from "next/link";
 
 export default function IssuesActions() {

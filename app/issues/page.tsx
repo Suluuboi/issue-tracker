@@ -1,7 +1,6 @@
-import ThemedLink from "@/app/components/Link";
+import { Link as ThemedLink, BadgeStatus } from "@/app/components";
 import prisma from "@/prisma/client";
 import { Table } from "@radix-ui/themes";
-import IssueStatus from "../components/badge/Status";
 import IssuesAction from "./new/component/IssuesActions";
 
 export default async function Issues() {
@@ -29,12 +28,12 @@ export default async function Issues() {
                   {issue.title}
                 </ThemedLink>
                 <div className="block md:hidden">
-                  <IssueStatus status={issue.status} />
+                  <BadgeStatus status={issue.status} />
                 </div>
               </Table.Cell>
 
               <Table.Cell className="hidden md:table-cell">
-                <IssueStatus status={issue.status} />
+                <BadgeStatus status={issue.status} />
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
                 {issue.createdAt.toDateString()}

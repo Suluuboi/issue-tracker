@@ -5,7 +5,7 @@ interface Props {
   href: string;
   children: string;
 }
-export default function ThemedLink({ children, href }: Props) {
+export default function Link({ children, href }: Props) {
   return (
     <NextLink href={href} passHref legacyBehavior>
       <RadixLink>{children}</RadixLink>

@@ -1,4 +1,4 @@
-import IssueStatus from "@/app/components/badge/Status";
+import { BadgeStatus } from "@/app/components";
 import prisma from "@/prisma/client";
 import { Card, Flex, Heading, Text } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
@@ -22,7 +22,7 @@ export default async function Details({ params }: Props) {
     <div>
       <Heading>{title}</Heading>
       <Flex gap={"3"} my={"2"} align={"center"}>
-        <IssueStatus status={status} />
+        <BadgeStatus status={status} />
         <Text as="p">{createdAt.toDateString()}</Text>
       </Flex>
       <Card className="prose mt-4">

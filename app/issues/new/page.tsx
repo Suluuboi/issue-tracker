@@ -1,7 +1,6 @@
 "use client";
-import Button from "@/app/components/form/Button";
-import FormErrorMessage from "@/app/components/form/ErrorMessage";
-import { IssueForm, issueSchema } from "@/app/validationSchema";
+import { Button, ErrorMessage } from "@/app/components";
+import { IssueForm, issueSchema } from "@/app/lib/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Callout, TextField } from "@radix-ui/themes";
 import axios from "axios";
@@ -31,10 +30,10 @@ export default function NewIssue() {
         className="max-w-xl space-y-3"
         onSubmit={handleSubmit(async (data) => await onSubmit(data))}
       >
-        <ErrorMessage />
+        <ErrorMessageTop />
         <TextField.Root placeholder="Title" {...register("title")} />
 
-        <FormErrorMessage>{errors.title?.message}</FormErrorMessage>
+        <ErrorMessage>{errors.title?.message}</ErrorMessage>
 
         <Controller
           name="description"
@@ -44,7 +43,7 @@ export default function NewIssue() {
           )}
         />
 
-        <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
+        <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
         <Button
           loading={isSubmitting}
@@ -56,7 +55,7 @@ export default function NewIssue() {
     </div>
   );
 
-  function ErrorMessage() {
+  function ErrorMessageTop() {
     return (
       <>
         {error && (
