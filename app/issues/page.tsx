@@ -1,7 +1,7 @@
 import { Link as ThemedLink, BadgeStatus } from "@/app/components";
 import prisma from "@/prisma/client";
 import { Table } from "@radix-ui/themes";
-import IssuesAction from "./new/component/IssuesActions";
+import IssuesAction from "./new/_component/IssuesActions";
 
 export default async function Issues() {
   const issues = await prisma.issue.findMany();

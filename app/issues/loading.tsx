@@ -1,5 +1,5 @@
 import { Table } from "@radix-ui/themes";
-import IssuesActions from "./new/component/IssuesActions";
+import IssuesActions from "./new/_component/IssuesActions";
 import { Skeleton } from "@/app/components";
 
 export default function LoadingIssues() {

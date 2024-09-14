@@ -2,7 +2,7 @@ import prisma from "@/prisma/client";
 import { Box, Grid } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 
-import { EditButton, Details } from "./components";
+import { EditButton, Details } from "./_components";
 
 interface Props {
   params: { id: string };

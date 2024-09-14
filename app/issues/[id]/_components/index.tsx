@@ -1,4 +1,4 @@
-import Details from "../components/Detalis";
+import Details from "./Detalis";
 import EditButton from "./EditButton";
 
 export { Details, EditButton };
