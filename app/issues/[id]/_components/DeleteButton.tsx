@@ -1,6 +1,7 @@
 "use client";
 
-import { AlertDialog, Button, Flex } from "@radix-ui/themes";
+import { Button } from "@/app/components";
+import { AlertDialog, Flex } from "@radix-ui/themes";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -9,11 +10,12 @@ import { FaDeleteLeft } from "react-icons/fa6";
 export default function DeleteButton({ issueId }: { issueId: number }) {
   const router = useRouter();
   const [error, setError] = useState(false);
+  const [isDeleting, setDeleting] = useState(false);
   return (
     <>
       <AlertDialog.Root>
         <AlertDialog.Trigger>
-          <Button color="red">
+          <Button color="red" loading={isDeleting}>
             <FaDeleteLeft />
             Delete Issue
           </Button>
@@ -60,12 +62,14 @@ export default function DeleteButton({ issueId }: { issueId: number }) {
   }
 
   async function onDelete() {
+    setDeleting(true);
     try {
       await axios.delete(`/api/issues/${issueId}`);
       router.push("/issues");
       router.refresh();
     } catch (error) {
       setError(true);
+      setDeleting(false);
     }
   }
 }
