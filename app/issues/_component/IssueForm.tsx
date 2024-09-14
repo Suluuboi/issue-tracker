@@ -62,7 +62,7 @@ export default function IssueForm({ issue }: { issue?: Issue }) {
           loading={isSubmitting}
           //disabled={errors.description || errors.title ? false : true}
         >
-          Submit New Issue
+          {issue ? "Edit Issue" : "Submit New Issue"}
         </Button>
       </form>
     </div>
@@ -86,7 +86,12 @@ export default function IssueForm({ issue }: { issue?: Issue }) {
   async function onSubmit(data: IssueFormInterface) {
     try {
       setSubmitting(true);
-      await axios.post("/api/issues", data);
+
+      if (issue) {
+        await axios.patch(`/api/issues/${issue.id}`, data);
+      } else {
+        await axios.post("/api/issues", data);
+      }
       router.push("/issues");
     } catch (error) {
       setSubmitting(false);
