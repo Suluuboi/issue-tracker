@@ -1,5 +1,6 @@
 "use client";
 
+import { Link } from "@/app/components";
 import { AlertDialog, Button, Flex } from "@radix-ui/themes";
 import { FaDeleteLeft } from "react-icons/fa6";
 
@@ -26,7 +27,9 @@ export default function DeleteButton({ issueId }: { issueId: number }) {
             </Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button color="red">Yes</Button>
+            <Button color="red">
+              <Link href="/issues">Yes</Link>
+            </Button>
           </AlertDialog.Action>
         </Flex>
       </AlertDialog.Content>
