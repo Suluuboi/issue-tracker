@@ -36,7 +36,7 @@ export default async function Profile() {
         <Button variant="ghost">
           <AvatarRadix
             src={avatar}
-            fallback={"H"}
+            fallback={"?"}
             radius="full"
             className="cursor-pointer"
           />

@@ -51,7 +51,7 @@ export default function DeleteButton({ issueId }: { issueId: number }) {
         <AlertDialog.Content>
           <AlertDialog.Title>Error</AlertDialog.Title>
           <AlertDialog.Description>
-            The Isue could not be deleted/
+            The Isue could not be deleted.
           </AlertDialog.Description>
           <Button color="gray" variant="soft" onClick={() => setError(false)}>
             Ok

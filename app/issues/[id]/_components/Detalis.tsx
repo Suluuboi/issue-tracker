@@ -1,14 +1,15 @@
 import { BadgeStatus } from "@/app/components";
 import { Issue } from "@prisma/client";
-import { Flex, Heading, Text, Card } from "@radix-ui/themes";
+import { Card, Flex, Heading, Text } from "@radix-ui/themes";
 import ReactMarkdown from "react-markdown";
 
 interface Props {
   issue: Issue;
 }
 
-export default function Detalis({ issue }: Props) {
+export default async function Detalis({ issue }: Props) {
   const { title, description, status, createdAt } = issue;
+
   return (
     <>
       <Heading>{title}</Heading>
