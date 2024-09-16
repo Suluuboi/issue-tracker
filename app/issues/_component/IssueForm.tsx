@@ -3,7 +3,7 @@ import { Button, ErrorMessage } from "@/app/components";
 import {
   IssueForm as IssueFormInterface,
   issueSchema,
-} from "@/app/lib/validationSchema";
+} from "@/app/_lib/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Issue } from "@prisma/client";
 import { Callout, TextField } from "@radix-ui/themes";
