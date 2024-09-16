@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { PatchIssueForm } from "../_lib/validationSchema";
 import axios, { AxiosResponse } from "axios";
+import toast from "react-hot-toast";
 
 export default function useIssues() {
   const [loading, setLoading] = useState(false);
@@ -33,10 +34,11 @@ export default function useIssues() {
     { id: string; data: PatchIssueForm }
   >({
     mutationFn: ({ data, id }) => updateIssue(id, data),
-    onSuccess: async (issues) => {
+    onSuccess: async () => {
       setLoading(false);
     },
     onError: () => {
+      toast.error("Changes could not be saved.");
       setError(error);
     },
     onMutate() {

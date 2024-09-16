@@ -7,6 +7,7 @@ import NavBar from "./_nav-bar/NavBar";
 import { Inter } from "next/font/google";
 import AuthProvider from "./_auth/Provider";
 import QueryClientProvider from "./QueryClientProvider";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,17 +28,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.variable}>
-        <QueryClientProvider>
-          <AuthProvider>
-            <Theme accentColor="amber" grayColor="sage">
-              <NavBar />
-              <main className="p-5">
-                <Container>{children}</Container>
-              </main>
-              {/* <ThemePanel /> */}
-            </Theme>
-          </AuthProvider>
-        </QueryClientProvider>
+        <>
+          <QueryClientProvider>
+            <AuthProvider>
+              <Theme accentColor="amber" grayColor="sage">
+                <NavBar />
+                <main className="p-5">
+                  <Container>{children}</Container>
+                </main>
+                {/* <ThemePanel /> */}
+              </Theme>
+            </AuthProvider>
+          </QueryClientProvider>
+          <Toaster />
+        </>
       </body>
     </html>
   );
