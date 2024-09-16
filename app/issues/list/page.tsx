@@ -1,7 +1,7 @@
 import { BadgeStatus, Link as ThemedLink } from "@/app/components";
 import prisma from "@/prisma/client";
 import { Table } from "@radix-ui/themes";
-import IssuesAction from "../new/_component/IssuesActions";
+import IssuesActions from "../new/_component/IssuesActions";
 
 export const dynamic = "force-dynamic";
 export default async function Issues() {
@@ -9,7 +9,8 @@ export default async function Issues() {
   //const { issues } = useIssues();
   return (
     <div>
-      <IssuesAction />
+      <IssuesActions />
+
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
