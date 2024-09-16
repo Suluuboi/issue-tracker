@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { EditButton, Details, DeleteButton } from "./_components";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/authOptions";
+import AssigneeSelect from "./_components/AssigneeSelect";
 
 interface Props {
   params: { id: string };
@@ -28,6 +29,7 @@ export default async function DetailsPage({ params }: Props) {
       {session && (
         <Box>
           <Flex direction={"column"} gap={"3"}>
+            <AssigneeSelect />
             <EditButton issueId={issue.id} />
             <DeleteButton issueId={issue.id} />
           </Flex>
