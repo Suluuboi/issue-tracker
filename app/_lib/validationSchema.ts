@@ -1,8 +1,24 @@
 import { z } from "zod";
 
-export const issueSchema = z.object({
+const maxText = 65535;
+
+const issueSchema = z.object({
   title: z.string().min(1).max(255),
-  description: z.string().min(1),
+  description: z.string().min(1).max(maxText),
 });
 
-export type IssueForm = z.infer<typeof issueSchema>;
+const patchIssueSchema = z.object({
+  title: z.string().min(1).max(255).optional(),
+  description: z.string().min(1).max(maxText).optional(),
+  assignedToUserId: z
+    .string()
+    .min(1, "AssignedToUserId is requred.")
+    .max(255)
+    .optional()
+    .nullable(),
+});
+
+export { issueSchema, patchIssueSchema };
+
+export type CreateIssueForm = z.infer<typeof issueSchema>;
+export type PatchIssueForm = z.infer<typeof patchIssueSchema>;

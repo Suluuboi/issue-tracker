@@ -1,3 +1,5 @@
+/**** This Hook oly woks for client components as it uses react query */
+
 import prisma from "@/prisma/client";
 import { Issue } from "@prisma/client";
 import { useMutation } from "@tanstack/react-query";
