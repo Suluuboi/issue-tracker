@@ -1,13 +1,20 @@
+import prisma from "@/prisma/client";
 import { Select } from "@radix-ui/themes";
 
-export default function AssigneeSelect() {
+export default async function AssigneeSelect() {
+  const users = await prisma.user.findMany({ orderBy: { name: "asc" } });
+
   return (
     <Select.Root>
       <Select.Trigger placeholder="Assign" />
       <Select.Content>
         <Select.Group>
           <Select.Label>Suggestions</Select.Label>
-          <Select.Item value="1">Hans Mbangu</Select.Item>
+          {users.map((user) => (
+            <Select.Item key={user.email} value="1">
+              {user.name!} ( {user.email} )
+            </Select.Item>
+          ))}
         </Select.Group>
       </Select.Content>
     </Select.Root>
