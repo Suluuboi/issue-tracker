@@ -1,3 +1,10 @@
+import {
+  Popover,
+  Avatar as AvatarRadix,
+  Flex,
+  Text,
+  Button,
+} from "@radix-ui/themes";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { ReactNode } from "react";
@@ -25,37 +32,37 @@ export default async function Profile() {
 
   function Avatar({ avatar }: { avatar: string }) {
     return (
-      <HoverDropdown>
-        <div className="avatar">
-          <div className="ring-primary ring-offset-base-100 w-8 rounded-full ring ring-offset-2">
-            <img src={avatar} />
-          </div>
-        </div>
-      </HoverDropdown>
+      <PopoverDropdown>
+        <Button variant="ghost">
+          <AvatarRadix
+            src={avatar}
+            fallback={"H"}
+            radius="full"
+            className="cursor-pointer"
+          />
+        </Button>
+      </PopoverDropdown>
     );
   }
 
   function TextAvatar({ text }: { text: string }) {
     return (
-      <HoverDropdown>
-        <div>{text}</div>
-      </HoverDropdown>
+      <PopoverDropdown>
+        <Flex>
+          <Text>{text}</Text>
+        </Flex>
+      </PopoverDropdown>
     );
   }
 
-  function HoverDropdown({ children }: { children: ReactNode }) {
+  function PopoverDropdown({ children }: { children: ReactNode }) {
     return (
-      <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
-        <div tabIndex={0} role="button">
-          {children}
-        </div>
-        <div
-          tabIndex={0}
-          className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
-        >
-          <div className="mb-5">
-            <div className="font-bold text-center">Hellow, {user?.name}</div>
-          </div>
+      <Popover.Root>
+        <Popover.Trigger>{children}</Popover.Trigger>
+        <Popover.Content>
+          <Flex className="mb-5">
+            <Text className="font-bold text-center">Hellow, {user?.name}</Text>
+          </Flex>
 
           <ul>
             <li>
@@ -67,8 +74,8 @@ export default async function Profile() {
               </Link>
             </li>
           </ul>
-        </div>
-      </div>
+        </Popover.Content>
+      </Popover.Root>
     );
   }
 }
