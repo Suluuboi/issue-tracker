@@ -11,19 +11,7 @@ import useIssues from "../../useIssues";
 export default async function AssigneeSelect({ issue }: { issue: Issue }) {
   //const users = await prisma.user.findMany({ orderBy: { name: "asc" } });
   const { assignedToUserId, id } = issue;
-  const {
-    data: users,
-    error,
-    isLoading,
-  } = useQuery<User[]>({
-    queryKey: ["users"],
-    queryFn: async () => {
-      const users = await axios.get("/api/users");
-      return users.data;
-    },
-    staleTime: 60 * 1000,
-    retry: 3,
-  });
+  const { data: users, error, isLoading } = useUsers();
 
   const { updateIssue } = useIssues();
 
@@ -57,4 +45,16 @@ export default async function AssigneeSelect({ issue }: { issue: Issue }) {
       </Select.Content>
     </Select.Root>
   );
+}
+
+function useUsers() {
+  return useQuery<User[]>({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const users = await axios.get("/api/users");
+      return users.data;
+    },
+    staleTime: 60 * 1000,
+    retry: 3,
+  });
 }
