@@ -1,4 +1,4 @@
-import { Link as ThemedLink, BadgeStatus } from "@/app/components";
+import { BadgeStatus, Link as ThemedLink } from "@/app/components";
 import prisma from "@/prisma/client";
 import { Table } from "@radix-ui/themes";
 import IssuesAction from "../new/_component/IssuesActions";
@@ -6,6 +6,7 @@ import IssuesAction from "../new/_component/IssuesActions";
 export const dynamic = "force-dynamic";
 export default async function Issues() {
   const issues = await prisma.issue.findMany();
+  //const { issues } = useIssues();
   return (
     <div>
       <IssuesAction />
