@@ -1,17 +1,18 @@
 "use client";
 
 import { Flex, Text } from "@radix-ui/themes";
-import Button from "./Button";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
-import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
 import { useRouter, useSearchParams } from "next/navigation";
+import { PropsWithChildren } from "react";
+import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
+import Button from "./Button";
 
-interface Props {
+interface Props extends PropsWithChildren {
   itemCount: number;
   pageSize: number;
 }
 
-export default function Pagination({ itemCount, pageSize }: Props) {
+export default function Pagination({ itemCount, pageSize, children }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pageParams = searchParams.get("page");
@@ -22,14 +23,15 @@ export default function Pagination({ itemCount, pageSize }: Props) {
   if (pageCount <= 1) return null;
 
   return (
-    <Flex align={"center"} justify={"center"}>
+    <Flex direction={"column"}>
+      <Flex>{children}</Flex>
       <PageControls />
     </Flex>
   );
 
   function PageControls() {
     return (
-      <Flex justify={"center"} gap={"2"} align={"center"}>
+      <Flex justify={"center"} gap={"2"} align={"center"} mt={"3"}>
         <Button disabled={currentPage === 1} onClick={() => changePage(1)}>
           <FaAngleDoubleLeft />
         </Button>
