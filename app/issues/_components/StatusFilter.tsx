@@ -1,6 +1,6 @@
 "use client";
 
-import { Status } from "@prisma/client";
+import { Issue, Status } from "@prisma/client";
 import { Select } from "@radix-ui/themes";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -21,6 +21,7 @@ export default function StatusFilter({ onChange, value }: StatusFilterProps) {
   const searchParams = useSearchParams(); // Get query params from the URL
   // Extract status from query parameters
   const queryStatus = searchParams.get("status") as Status | undefined;
+  const queryOrderBy = searchParams.get("orderBy") as keyof Issue | undefined;
 
   return (
     <Select.Root
@@ -46,7 +47,16 @@ export default function StatusFilter({ onChange, value }: StatusFilterProps) {
     const canRedirect = url?.includes("/issues/list");
 
     if (canRedirect) {
-      const query = status !== "null" ? "?status=" + status : "";
+      const params = new URLSearchParams();
+      if (status)
+        status === "null"
+          ? params.delete("status")
+          : params.append("status", status);
+
+      if (queryOrderBy) params.append("orderBy", queryOrderBy);
+
+      //const query = status !== "null" ? "?status=" + status : "";
+      const query = params.size ? `?${params.toString()}` : "";
       router.push("/issues/list" + query);
     }
 
