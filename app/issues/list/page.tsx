@@ -12,10 +12,10 @@ interface Props {
   searchParams: { status: Status; orderBy: keyof Issue };
 }
 export default async function Issues({ searchParams }: Props) {
-  const { status, orderBy } = searchParams;
+  const { status, orderBy: selectedOrderBy } = searchParams;
 
   const columns: { label: string; value: keyof Issue; class?: string }[] = [
-    { label: "Issue", value: "description" },
+    { label: "Issue", value: "title" },
     { label: "Satus", value: "status", class: "hidden md:table-cell" },
     { label: "Created", value: "createdAt", class: "hidden md:table-cell" },
   ];
@@ -23,9 +23,15 @@ export default async function Issues({ searchParams }: Props) {
   const statuses = Object.values(Status);
   const selectedStatus = statuses.includes(status) ? status : undefined;
 
+  const orderBy = columns
+    .map((column) => column.value)
+    .includes(selectedOrderBy)
+    ? { [selectedOrderBy]: "desc" }
+    : undefined;
+
   const issues = await prisma.issue.findMany({
     where: { status: selectedStatus },
-    orderBy: { id: "desc" },
+    orderBy,
   });
 
   return (
@@ -45,7 +51,7 @@ export default async function Issues({ searchParams }: Props) {
                 >
                   {column.label}
                 </Link>
-                {column.value === orderBy && (
+                {column.value === selectedOrderBy && (
                   <FaChevronDown className="inline space-x-1" />
                 )}
               </Table.ColumnHeaderCell>
