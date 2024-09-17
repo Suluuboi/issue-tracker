@@ -17,6 +17,7 @@ export default async function Issues({ searchParams }: Props) {
 
   const issues = await prisma.issue.findMany({
     where: { status: selectedStatus },
+    orderBy: { id: "desc" },
   });
 
   return (

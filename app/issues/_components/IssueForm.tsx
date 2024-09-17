@@ -1,7 +1,7 @@
 "use client";
-import { Button, ErrorMessage } from "@/app/components";
+import { Button, ErrorMessage, JsonView } from "@/app/components";
 import {
-  IssueForm as IssueFormInterface,
+  CreateIssueForm as IssueFormInterface,
   issueSchema,
 } from "@/app/_lib/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,6 +14,7 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { BiInfoCircle } from "react-icons/bi";
 import SimpleMDE from "react-simplemde-editor";
+import StatusFilter from "./StatusFilter";
 
 export default function IssueForm({ issue }: { issue?: Issue }) {
   const {
@@ -21,12 +22,14 @@ export default function IssueForm({ issue }: { issue?: Issue }) {
     control,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<IssueFormInterface>({
     resolver: zodResolver(issueSchema),
   });
   const router = useRouter();
   const [error, setError] = useState<string>();
   const [isSubmitting, setSubmitting] = useState(false);
+  const formValues = watch();
 
   return (
     <div>
@@ -42,6 +45,14 @@ export default function IssueForm({ issue }: { issue?: Issue }) {
         />
 
         <ErrorMessage>{errors.title?.message}</ErrorMessage>
+
+        {/* Status Filter */}
+        <Controller
+          name="status"
+          control={control}
+          defaultValue={issue?.status || undefined}
+          render={({ field }) => <StatusFilter {...field} />}
+        />
 
         <Controller
           name="description"
@@ -60,6 +71,7 @@ export default function IssueForm({ issue }: { issue?: Issue }) {
         >
           {issue ? "Edit Issue" : "Submit New Issue"}
         </Button>
+        <JsonView json={formValues} />
       </form>
     </div>
   );

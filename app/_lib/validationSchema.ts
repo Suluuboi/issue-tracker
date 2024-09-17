@@ -1,3 +1,4 @@
+import { Status } from "@prisma/client";
 import { z } from "zod";
 
 const maxText = 65535;
@@ -5,6 +6,7 @@ const maxText = 65535;
 const issueSchema = z.object({
   title: z.string().min(1).max(255),
   description: z.string().min(1).max(maxText),
+  status: z.nativeEnum(Status).optional(),
 });
 
 const patchIssueSchema = z.object({
@@ -16,6 +18,7 @@ const patchIssueSchema = z.object({
     .max(255)
     .optional()
     .nullable(),
+  status: z.nativeEnum(Status).optional(),
 });
 
 export { issueSchema, patchIssueSchema };
