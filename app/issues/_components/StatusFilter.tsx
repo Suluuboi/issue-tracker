@@ -58,6 +58,8 @@ export default function StatusFilter({ onChange, value }: StatusFilterProps) {
       //const query = status !== "null" ? "?status=" + status : "";
       const query = params.size ? `?${params.toString()}` : "";
       router.push("/issues/list" + query);
+
+      return;
     }
 
     onChange ? onChange(status) : null;
