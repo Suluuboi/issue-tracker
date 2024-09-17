@@ -1,13 +1,14 @@
 import { Container, Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import type { Metadata } from "next";
-import "./globals.css";
 import NavBar from "./_nav-bar/NavBar";
+import "./globals.css";
 
 import { Inter } from "next/font/google";
-import AuthProvider from "./_auth/Provider";
-import QueryClientProvider from "./QueryClientProvider";
 import { Toaster } from "react-hot-toast";
+import AuthProvider from "./_auth/Provider";
+import Footer from "./_nav-bar/Footer";
+import QueryClientProvider from "./QueryClientProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,9 +34,10 @@ export default function RootLayout({
             <AuthProvider>
               <Theme accentColor="amber" grayColor="sage">
                 <NavBar />
-                <main>
+                <main className="min-h-screen sm:min-h-[50vh] md:min-h-[75vh] lg:min-h-[100vh]">
                   <Container>{children}</Container>
                 </main>
+                <Footer />
                 {/* <ThemePanel /> */}
               </Theme>
             </AuthProvider>

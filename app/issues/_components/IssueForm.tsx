@@ -73,7 +73,7 @@ export default function IssueForm({ issue }: { issue?: Issue }) {
         >
           {issue ? "Edit Issue" : "Submit New Issue"}
         </Button>
-        <JsonView json={formValues} />
+        {/* <JsonView json={formValues} /> */}
       </form>
     </div>
   );

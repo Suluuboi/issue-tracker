@@ -1,5 +1,5 @@
 "use client";
-import { Card } from "@radix-ui/themes";
+import { Card, Text, Heading } from "@radix-ui/themes";
 import {
   ResponsiveContainer,
   BarChart,
@@ -25,6 +25,7 @@ export default function IssueChart({ clossed, inProgress, open }: Props) {
 
   return (
     <Card>
+      <Heading className="mb-5">Statistics</Heading>
       <ResponsiveContainer width={"100%"} height={300}>
         <BarChart data={data}>
           <XAxis dataKey={"label"} />
