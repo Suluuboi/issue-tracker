@@ -20,11 +20,10 @@ export default function Pagination({ itemCount, pageSize, children }: Props) {
   const currentPage = parseInt(pageParams?.toString() || "1");
 
   const pageCount = Math.ceil(itemCount / pageSize);
-  if (pageCount <= 1) return null;
 
   return (
-    <Flex direction={"column"}>
-      <Flex>{children}</Flex>
+    <Flex direction={"column"} width={"100%"}>
+      <Flex width={"100%"}>{children}</Flex>
       <PageControls />
     </Flex>
   );

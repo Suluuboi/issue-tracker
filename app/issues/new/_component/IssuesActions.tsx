@@ -5,7 +5,7 @@ import { Flex } from "@radix-ui/themes";
 
 export default function IssuesActions() {
   return (
-    <Flex className="mb-5" justify={"between"}>
+    <Flex justify={"between"}>
       <Button>
         <Link href={"/issues/new"}>New Issue</Link>
       </Button>
