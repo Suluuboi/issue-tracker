@@ -1,4 +1,4 @@
-import { Container, Flex } from "@radix-ui/themes";
+import { Container, Flex, Grid } from "@radix-ui/themes";
 import IssueSummary from "./dashboard/IssueSummary";
 import LatestIssues from "./dashboard/latestIssues";
 
@@ -13,24 +13,21 @@ export default async function Home() {
   });
 
   return (
-    <Container>
-      <div className="row">
-        <div>{/* <LatestIssues /> */}</div>
-        <div>
-          <IssueSummary
-            clossed={closedCount}
-            open={openCount}
-            inProgress={inProgressCount}
-          />
-        </div>
-        <div>
-          <IssueChart
-            clossed={closedCount}
-            inProgress={inProgressCount}
-            open={openCount}
-          />
-        </div>
-      </div>
-    </Container>
+    <Grid columns={{ initial: "1", md: "2" }} gap={"5"}>
+      <Flex direction={"column"} gap={"5"}>
+        <IssueSummary
+          clossed={closedCount}
+          open={openCount}
+          inProgress={inProgressCount}
+        />
+        <LatestIssues />
+      </Flex>
+
+      <IssueChart
+        clossed={closedCount}
+        inProgress={inProgressCount}
+        open={openCount}
+      />
+    </Grid>
   );
 }
