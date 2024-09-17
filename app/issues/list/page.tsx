@@ -2,15 +2,23 @@ import { BadgeStatus, Link as ThemedLink } from "@/app/components";
 import prisma from "@/prisma/client";
 import { Table } from "@radix-ui/themes";
 import IssuesActions from "../new/_component/IssuesActions";
-import { Status } from "@prisma/client";
+import { Issue, Status } from "@prisma/client";
+import Link from "next/link";
+import { FaChevronDown } from "react-icons/fa6";
 
 export const dynamic = "force-dynamic";
 
 interface Props {
-  searchParams: { status: Status };
+  searchParams: { status: Status; orderBy: keyof Issue };
 }
 export default async function Issues({ searchParams }: Props) {
-  const { status } = searchParams;
+  const { status, orderBy } = searchParams;
+
+  const columns: { label: string; value: keyof Issue; class?: string }[] = [
+    { label: "Issue", value: "description" },
+    { label: "Satus", value: "status", class: "hidden md:table-cell" },
+    { label: "Created", value: "createdAt", class: "hidden md:table-cell" },
+  ];
 
   const statuses = Object.values(Status);
   const selectedStatus = statuses.includes(status) ? status : undefined;
@@ -27,13 +35,21 @@ export default async function Issues({ searchParams }: Props) {
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
-            <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
-              Satus
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
-              Created
-            </Table.ColumnHeaderCell>
+            {columns.map((column) => (
+              <Table.ColumnHeaderCell
+                key={column.value}
+                className={column.class}
+              >
+                <Link
+                  href={{ query: { ...searchParams, orderBy: column.value } }}
+                >
+                  {column.label}
+                </Link>
+                {column.value === orderBy && (
+                  <FaChevronDown className="inline space-x-1" />
+                )}
+              </Table.ColumnHeaderCell>
+            ))}
           </Table.Row>
         </Table.Header>
         <Table.Body>

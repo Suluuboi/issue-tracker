@@ -54,6 +54,8 @@ export default function IssueForm({ issue }: { issue?: Issue }) {
           render={({ field }) => <StatusFilter {...field} />}
         />
 
+        <ErrorMessage>{errors.status?.message}</ErrorMessage>
+
         <Controller
           name="description"
           control={control}
