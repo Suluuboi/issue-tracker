@@ -1,4 +1,4 @@
-import { Container, Flex, Grid } from "@radix-ui/themes";
+import { Flex, Grid } from "@radix-ui/themes";
 import IssueSummary from "./dashboard/IssueSummary";
 import LatestIssues from "./dashboard/latestIssues";
 

@@ -1,7 +1,7 @@
 import prisma from "@/prisma/client";
-import { Avatar, Card, Flex, Heading, Table, Text } from "@radix-ui/themes";
-import { BadgeStatus } from "../components";
+import { Avatar, Card, Flex, Heading, Table } from "@radix-ui/themes";
 import Link from "next/link";
+import { BadgeStatus } from "../components";
 
 interface Props {}
 
